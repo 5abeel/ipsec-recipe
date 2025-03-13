@@ -85,5 +85,7 @@ jobs:
           ## Create the missing directories
           mkdir -p ./third-party/grpc/cpp_out
 
+          export LD_LIBRARY_PATH=$DEPS_INSTALL/lib:$LD_LIBRARY_PATH
+
           sudo -E ./swanbuild_p4.sh -t native -o $DEPS_INSTALL --enable_grpc
 
