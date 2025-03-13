@@ -90,5 +90,5 @@ jobs:
           #sudo ldconfig
 
 
-          sudo -E ./swanbuild_p4.sh -t arm -o $DEPS_INSTALL --enable_grpc
+          sudo -E ./swanbuild_p4.sh -t native -o $DEPS_INSTALL --enable_grpc
 
