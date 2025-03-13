@@ -1,0 +1,51 @@
+name: "IPsec Recipe Build Check"
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions: read-all
+
+jobs:
+  build_ipsec_recipe:
+    runs-on: ubuntu-22.04
+
+    steps:
+      # Step 1: Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Step 2: Install prerequisites
+      - name: Install prerequisites
+        run: |
+          sudo apt -y update && \
+          sudo apt install -y git cmake gcc g++ openssl libssl-dev libatomic1 libnl-route-3-dev sudo vim patch python3 python3-pip \
+          libgmp-dev gettext libgettextpo-dev gperf byacc flex bison libtool autoconf-archive autoconf automake \
+          build-essential pkg-config autoconf automake libtool libgrpc-dev libgrpc++-dev
+
+      # Step 3: Build all
+      - name: Build all
+        run: |
+          ls -l
+          source env_setup_acc.sh
+          
+          tar -xzf deps-ubuntu22.04.tar.gz -C ./
+          
+          cd ipsec_offload_plugin
+          git clone https://github.com/strongswan/strongswan.git
+          cd strongswan/
+          git checkout tags/5.9.3 -b 5.9.3
+          cd -
+          ls -l
+          ls -l $DEPS_INSTALL
+          sudo -E ./swanbuild_p4.sh -t native -o $DEPS_INSTALL --enable_grpc
+
