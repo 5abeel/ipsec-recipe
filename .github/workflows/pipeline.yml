@@ -41,22 +41,29 @@ jobs:
           libgmp-dev gettext libgettextpo-dev gperf byacc flex bison libtool autoconf-archive autoconf automake \
           build-essential pkg-config autoconf automake libtool libgrpc-dev libgrpc++-dev
 
-      # Step 3: Build all
-      - name: Build all
+      - name: Set env
+        run: |
+          ls -l
+          source env_setup_acc.sh
+
+
+      - name: download tarball
         uses: robinraju/release-downloader@v1.11
         with:
           repository: ${{ env.DEPS_REPOSITORY }}
           fileName: ${{ env.DEPS_FILENAME }}
-        run: |
-          ls -l
-          source env_setup_acc.sh
 
           tar -xzf $DEPS_FILENAME
           rm $DEPS_FILENAME
 
           ls -l
           ls -l $DEPS_INSTALL
-          
+
+      - name: Build
+        run: |
+          ls -l
+          source env_setup_acc.sh
+            
           cd ipsec_offload_plugin
           git clone https://github.com/strongswan/strongswan.git
           cd strongswan/
