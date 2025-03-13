@@ -35,17 +35,14 @@ jobs:
       # Step 3: Build all
       - name: Build all
         run: |
-          ls -l
           source env_setup_acc.sh
           
-          tar -xzf deps-ubuntu22.04.tar.gz -C ./
+          sudo tar -xzf deps-ubuntu22.04.tar.gz -C ./
           
           cd ipsec_offload_plugin
           git clone https://github.com/strongswan/strongswan.git
           cd strongswan/
           git checkout tags/5.9.3 -b 5.9.3
-          cd -
-          ls -l
           ls -l $DEPS_INSTALL
           sudo -E ./swanbuild_p4.sh -t native -o $DEPS_INSTALL --enable_grpc
 
