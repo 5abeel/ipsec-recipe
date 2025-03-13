@@ -4,10 +4,12 @@ on:
   push:
     branches:
       - main
+      - add_pipeline
 
   pull_request:
     branches:
       - main
+      - add_pipeline
 
 concurrency:
   group: build-${{ github.ref }}
@@ -15,6 +17,13 @@ concurrency:
 
 permissions: read-all
 
+env:
+  #---------------------------------------------------------------------
+  # Environment variables
+  #---------------------------------------------------------------------
+  DEPS_REPOSITORY: 5abeel/ipsec-recipe
+  DEPS_FILENAME: deps-ubuntu-22.04.tar.gz
+  
 jobs:
   build_ipsec_recipe:
     runs-on: ubuntu-22.04
@@ -34,10 +43,19 @@ jobs:
 
       # Step 3: Build all
       - name: Build all
+        uses: robinraju/release-downloader@v1.11
+        with:
+          repository: ${{ env.DEPS_REPOSITORY }}
+          fileName: ${{ env.DEPS_FILENAME }}
         run: |
           ls -l
           source env_setup_acc.sh
-          tar -xzf deps-ubuntu22.04.tar.gz
+
+          tar -xzf $DEPS_FILENAME
+          rm $DEPS_FILENAME
+
+          ls -l
+          ls -l $DEPS_INSTALL
           
           cd ipsec_offload_plugin
           git clone https://github.com/strongswan/strongswan.git
