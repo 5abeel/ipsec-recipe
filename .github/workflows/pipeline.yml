@@ -22,7 +22,7 @@ env:
   # Environment variables
   #---------------------------------------------------------------------
   DEPS_REPOSITORY: 5abeel/ipsec-recipe
-  DEPS_FILENAME: deps-ubuntu-22.04.tar.gz
+  DEPS_FILENAME: deps-ubuntu2204.tar.gz
   
 jobs:
   build_ipsec_recipe:
