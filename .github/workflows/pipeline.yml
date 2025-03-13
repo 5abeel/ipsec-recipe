@@ -52,7 +52,7 @@ jobs:
         with:
           repository: ${{ env.DEPS_REPOSITORY }}
           fileName: ${{ env.DEPS_FILENAME }}
-
+      - run: |
           tar -xzf $DEPS_FILENAME
           rm $DEPS_FILENAME
 
