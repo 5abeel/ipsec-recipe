@@ -81,5 +81,9 @@ jobs:
           cd strongswan/
           git checkout tags/5.9.3 -b 5.9.3
           cd -
+
+          ## Create the missing directories
+          mkdir -p ./third-party/grpc/cpp_out
+
           sudo -E ./swanbuild_p4.sh -t native -o $DEPS_INSTALL --enable_grpc
 
