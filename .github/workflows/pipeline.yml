@@ -35,9 +35,9 @@ jobs:
       # Step 3: Build all
       - name: Build all
         run: |
+          ls -l
           source env_setup_acc.sh
-          
-          sudo tar -xzf deps-ubuntu22.04.tar.gz -C ./
+          tar -xzf deps-ubuntu22.04.tar.gz
           
           cd ipsec_offload_plugin
           git clone https://github.com/strongswan/strongswan.git
