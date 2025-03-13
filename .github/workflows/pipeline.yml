@@ -96,5 +96,5 @@ jobs:
           ls $DEPS_INSTALL/lib/libgrpc_plugin_support.so.1.48
           echo "===debug end==="
 
-          ./swanbuild_p4.sh -t native -o $DEPS_INSTALL --enable_grpc
+          sudo -E ./swanbuild_p4.sh -t native -o $DEPS_INSTALL --enable_grpc
 
