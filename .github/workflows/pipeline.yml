@@ -85,10 +85,16 @@ jobs:
           ## Create the missing directories
           #mkdir -p ./third-party/grpc/cpp_out
 
-          #export LD_LIBRARY_PATH=$DEPS_INSTALL/lib:$LD_LIBRARY_PATH
           #echo "/home/runner/work/ipsec-recipe/ipsec-recipe/PLUGIN_DEP_INSTALL/lib" | sudo tee /etc/ld.so.conf.d/grpc.conf
           #sudo ldconfig
+          
+          echo "==debug=="
+          export LD_LIBRARY_PATH=$DEPS_INSTALL/lib:$LD_LIBRARY_PATH
+          echo $LD_LIBRARY_PATH
+          ldd /home/runner/work/ipsec-recipe/ipsec-recipe/PLUGIN_DEP_INSTALL/bin/grpc_cpp_plugin
 
+          ls $DEPS_INSTALL/lib/libgrpc_plugin_support.so.1.48
+          echo "===debug end==="
 
-          sudo -E ./swanbuild_p4.sh -t native -o $DEPS_INSTALL --enable_grpc
+          ./swanbuild_p4.sh -t native -o $DEPS_INSTALL --enable_grpc
 

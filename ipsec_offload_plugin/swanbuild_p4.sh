@@ -306,6 +306,7 @@ fi
 if [[ -d $THIRD_PARTY_DIR ]]; then
      echo "================== COMPILING THIRD-PARTY DIRECTORY ================"
      cd $THIRD_PARTY_DIR
+     LDFLAGS += -Wl,-rpath,$DEPS_INSTALL/lib
      ./autogen.sh
      ./configure --enable-grpc
      make uninstall
