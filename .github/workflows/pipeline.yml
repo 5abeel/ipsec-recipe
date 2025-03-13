@@ -22,7 +22,6 @@ env:
   # Environment variables
   #---------------------------------------------------------------------
   DEPS_REPOSITORY: 5abeel/ipsec-recipe
-  latest: true
   DEPS_FILENAME: deps-ubuntu-22.04.tar.gz
   
 jobs:
@@ -53,6 +52,7 @@ jobs:
         with:
           repository: ${{ env.DEPS_REPOSITORY }}
           fileName: ${{ env.DEPS_FILENAME }}
+          latest: true
       - run: |
           tar -xzf $DEPS_FILENAME
           rm $DEPS_FILENAME
