@@ -91,7 +91,7 @@ if [ $ACC_SDK_DIR == "native" ]; then
      PLATFORM="native"
 elif [ ! -d $ACC_SDK_DIR ]; then
      echo "ERROR: Invalid acc sdk directory path!!"
-     exit 1
+     exit
 fi
 #P4OVS_DEPS_INSTALL is a custom set of binaries shared by SDE team.
 #May be docker image need create these dependencies
@@ -103,7 +103,7 @@ if [ $enablegrpc -eq 1 ]; then
           export GRPC_INCLUDE_PATH=$DEPS_INSTALL_PATH/include
      else
         export GRPC_LIB_PATH=$DEPS_INSTALL_PATH/lib
-        export GRPC_LIB64_PATH=$DEPS_INSTALL_PATH/lib
+        export GRPC_LIB64_PATH=$DEPS_INSTALL_PATH/lib64
      	export GRPC_INCLUDE_PATH=$DEPS_INSTALL_PATH/include
      fi
 
@@ -306,7 +306,6 @@ fi
 if [[ -d $THIRD_PARTY_DIR ]]; then
      echo "================== COMPILING THIRD-PARTY DIRECTORY ================"
      cd $THIRD_PARTY_DIR
-     export LDFLAGS += -Wl,-rpath,$DEPS_INSTALL/lib
      ./autogen.sh
      ./configure --enable-grpc
      make uninstall
